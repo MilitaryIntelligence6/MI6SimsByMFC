@@ -589,9 +589,14 @@ void SimsDialog::OnMenuOpenOneFile()
 	// TODO: 在此添加命令处理程序代码、
 	// # 定位文件并正确打开文件：
 	CString filePath = getFilePath(1);
+	std::cout << std::endl << std::endl << "FILE_PATH = " << filePath << std::endl << std::endl << std::endl;
 	//SetDlgItemText(GetDlgItem(IDC_EDIT_ID)->GetDlgCtrlID(), filePath);
 	//定位文件位置（没有错误检查）
 	//参考资料：http://www.manongjc.com/article/42955.html
+	if (!filePath)
+	{
+		return;
+	}
 	CStdioFile file;
 	file.Open(filePath, CFile::typeText|CFile::modeRead);//定义文件的只读模式
 	//默认文件打开成功
@@ -836,23 +841,23 @@ void SimsDialog::OnMenuCreateNewFile()
 
 
 
-// 打开窗口，另存为窗口。返回选中文件路径
+// 打开窗口，另存为窗口, 返回选中文件路径
 CString SimsDialog::getFilePath(bool isRead)
 {
-	// TODO: 在此处添加实现代码.
+	// TODO: 在此处添加实现代码;
+	// 自定义的.score文档本质是.tsv;
 	CString filter = L"成绩文本文档(*.score;*.)|*.score;*.||";
 	CString fileName = L"score";
 	CFileDialog lsDialog(isRead, _T("score"), fileName, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, filter, this);
-
-	//TCHAR Buffer[size];
-	//GetCurrentDirectory(siz)
-	//lsDialog.m_ofn.lpstrInitialDir = "C:\\";
 	
+	// lsDialog.m_ofn.lpstrInitialDir = _T("./sample/");
+	
+	std::cout << "IDOK = DOMO" << (IDOK == lsDialog.DoModal()) << std::endl;
 	if (IDOK == lsDialog.DoModal())
 	{
 		return lsDialog.GetPathName();
 	}
-
+	return NULL;
 }
 
 
