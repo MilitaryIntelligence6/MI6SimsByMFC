@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{79a38c66-1360-4843-9732-a637eb2b772a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main">
+      <UniqueIdentifier>{21c3f1aa-82f6-41c3-b598-2b9b23e502d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp">
+      <UniqueIdentifier>{a3af8b9f-7cda-4bf1-bb89-aedcd0795b23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn">
+      <UniqueIdentifier>{08acd516-50d4-47de-96f4-ad80c7f1f7e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection">
+      <UniqueIdentifier>{efba8dbc-9fd2-436c-a6cf-a2b4a0781ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims">
+      <UniqueIdentifier>{e38a91c0-677d-4ac2-8fe0-39a679995c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\view">
+      <UniqueIdentifier>{ad54558b-5592-46a4-8947-d31316ee3e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\controller">
+      <UniqueIdentifier>{aa6e7d32-8b48-4b20-bcdc-00307d2d359f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\entity">
+      <UniqueIdentifier>{c2921c22-caa0-46b2-b9c1-d908cdd14b13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\resources">
+      <UniqueIdentifier>{58f1cb43-332a-4bd9-9a7a-67dcf4495375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\util">
+      <UniqueIdentifier>{63084ebe-1eb5-4996-96b4-7691fd25f433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\dependency">
+      <UniqueIdentifier>{2829760c-423b-403e-8ea7-1fa96bdd6c4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\controller\impl">
+      <UniqueIdentifier>{0a8ff758-04f3-4456-be48-abb87d06e490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main\cpp\cn\misection\sims\entity\impl">
+      <UniqueIdentifier>{430ea5ed-2ecd-4028-8023-9bf52bba94bc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DeleteDialog.h">
+      <Filter>src\main\cpp\cn\misection\sims\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework.h">
+      <Filter>src\main\cpp\cn\misection\sims\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InsertDialog.h">
+      <Filter>src\main\cpp\cn\misection\sims\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LinkList.h">
+      <Filter>src\main\cpp\cn\misection\sims\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MenuData.h">
+      <Filter>src\main\cpp\cn\misection\sims\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>src\main\cpp\cn\misection\sims\dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Resource.h">
+      <Filter>src\main\cpp\cn\misection\sims\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SearchEngine.h">
+      <Filter>src\main\cpp\cn\misection\sims\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sims.h">
+      <Filter>src\main\cpp\cn\misection\sims\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SimsDialog.h">
+      <Filter>src\main\cpp\cn\misection\sims\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\targetver.h">
+      <Filter>src\main\cpp\cn\misection\sims\dependency</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DeleteDialog.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\controller\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InsertDialog.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\controller\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuData.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\entity\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SearchEngine.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\entity\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sims.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\entity\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimsDialog.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\controller\impl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Sims.rc2">
+      <Filter>src\main\cpp\cn\misection\sims\view</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Sims.ico">
+      <Filter>src\main\resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Sims.rc">
+      <Filter>src\main\cpp\cn\misection\sims\view</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

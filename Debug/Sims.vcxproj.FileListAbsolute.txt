@@ -1,0 +1,2 @@
+C:\Users\Administrator\Desktop\class作业\Cpp\BigHW\MyProj\MI6Sims\Debug\Sims.exe
+C:\Users\Administrator\Desktop\class作业\Cpp\BigHW\MyProj\MI6Sims\Debug\Sims.pdb
