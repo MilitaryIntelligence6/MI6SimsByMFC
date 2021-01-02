@@ -21,6 +21,10 @@
 #include <iostream>
 
 #define CLASS_COUNT 6
+/**
+ * 操作文件时返回;
+ */
+#define STRING_DOT_EMPTY _T("")
 
 InsertDialog* pDlg;
 
@@ -29,7 +33,7 @@ InsertDialog* pDlg;
 #endif
 
 
-#define SAMPLE_PATH "./sample/example.score"
+#define SAMPLE_PATH "./sample/example.info"
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -159,17 +163,17 @@ BOOL SimsDialog::OnInitDialog()
 	m_stlistct.SetBkColor(RGB(205,205,255));//表格的初始化
 	m_stlistct.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES); // 整行选择、网格线
 	m_stlistct.InsertColumn(0, _T("序号"), LVCFMT_FILL, 50);
-	m_stlistct.InsertColumn(1, _T("姓名"), LVCFMT_CENTER, 70);
+	m_stlistct.InsertColumn(1, _T("姓名"), LVCFMT_CENTER, 150);
 	m_stlistct.InsertColumn(2, _T("性别"), LVCFMT_CENTER, 50);
 	m_stlistct.InsertColumn(3, _T("学号"), LVCFMT_CENTER, 100);
-	m_stlistct.InsertColumn(4, _T("班级"), LVCFMT_CENTER, 100);
+	m_stlistct.InsertColumn(4, _T("班级"), LVCFMT_CENTER, 125);
 	m_stlistct.InsertColumn(5, _T("数据结构"), LVCFMT_CENTER, 100);
 	m_stlistct.InsertColumn(6, _T("计算机网咯"), LVCFMT_CENTER, 100);
 	m_stlistct.InsertColumn(7, _T("编译原理"), LVCFMT_CENTER, 100);
 	m_stlistct.InsertColumn(8, _T("Android开发"), LVCFMT_CENTER, 100);
 	//m_stlistct.InsertColumn(9, _T("平均"), LVCFMT_CENTER, 50);//做成新的dlg(菜单栏启动)
 	//m_stlistct.InsertColumn(10, _T("排名"), LVCFMT_CENTER, 50);
-	m_stlistct.InsertColumn(11, _T("出生日期"), LVCFMT_CENTER, 100);
+	m_stlistct.InsertColumn(11, _T("出生日期"), LVCFMT_CENTER, 125);
 
 	//动态添加组合框内容【班级栏】
 	CString work[CLASS_COUNT] =
@@ -219,6 +223,9 @@ BOOL SimsDialog::OnInitDialog()
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
+
+
+
 
 void SimsDialog::OnSysCommand(UINT nID, LPARAM lParam)
 {
@@ -312,7 +319,7 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 	}
 	// TODO: 在此处添加实现代码.
 	m_stlistct.DeleteAllItems();
-	if (tail->student.num==0)
+	if (tail->student.num == 0)
 	{
 		return 0;
 	}
@@ -325,7 +332,7 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 	p = p->next;
 	int i = 0;
 
-	while (p!=NULL)
+	while (p != NULL)
 	{
 
 		tempText.Format(_T("%d"), p->student.num);		//自定义的序号
@@ -576,8 +583,8 @@ void SimsDialog::OnMenuSaveTheFile()
 		p = orderhead;
 	}
 	// #define SAVE_PATH 
-	FileSave(p, _T("./sample/save.score"));
-	MessageBox(_T("文档已保存至工程目录的\"./sample/save.score\"下\n由于目前暂时没有做好获取runtime打开路径\n//TODO希望今后上线直接在本路径保存的功能!"), 
+	FileSave(p, _T("./sample/save.info"));
+	MessageBox(_T("文档已保存至工程目录的\"./sample/save.info\"下\n由于目前暂时没有做好获取runtime打开路径\n//TODO希望今后上线直接在本路径保存的功能!"), 
 		_T("保存成功!"),
 		MB_OK);
 }
@@ -589,11 +596,13 @@ void SimsDialog::OnMenuOpenOneFile()
 	// TODO: 在此添加命令处理程序代码、
 	// # 定位文件并正确打开文件：
 	CString filePath = getFilePath(1);
-	std::cout << std::endl << std::endl << "FILE_PATH = " << filePath << std::endl << std::endl << std::endl;
 	//SetDlgItemText(GetDlgItem(IDC_EDIT_ID)->GetDlgCtrlID(), filePath);
 	//定位文件位置（没有错误检查）
 	//参考资料：http://www.manongjc.com/article/42955.html
-	if (!filePath)
+	//if (!filePath)
+	OutputDebugString(_T("filepath = "));
+	OutputDebugString(filePath);
+	if (filePath.Compare(STRING_DOT_EMPTY) == 0)
 	{
 		return;
 	}
@@ -845,19 +854,36 @@ void SimsDialog::OnMenuCreateNewFile()
 CString SimsDialog::getFilePath(bool isRead)
 {
 	// TODO: 在此处添加实现代码;
-	// 自定义的.score文档本质是.tsv;
-	CString filter = L"成绩文本文档(*.score;*.)|*.score;*.||";
-	CString fileName = L"score";
-	CFileDialog lsDialog(isRead, _T("score"), fileName, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, filter, this);
+	// 自定义的.info文档本质是.tsv;
+	CString filter = L"成绩文本文档(*.info;*.)|*.info;*.||";
+	CString fileName = L"example";
+	CFileDialog lsDialog(isRead, _T("info"), fileName, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, filter, this);
 	
 	// lsDialog.m_ofn.lpstrInitialDir = _T("./sample/");
 	
-	std::cout << "IDOK = DOMO" << (IDOK == lsDialog.DoModal()) << std::endl;
-	if (IDOK == lsDialog.DoModal())
+	//OutputDebugString()
+	switch (lsDialog.DoModal())
 	{
-		return lsDialog.GetPathName();
+		case IDOK:
+		{
+			return lsDialog.GetPathName();
+			// break 在此可有可无, 为了规范加上;
+			break;
+		}
+
+		case IDNO:
+		{
+			return STRING_DOT_EMPTY;
+			// 此处可有可无;
+			break;
+		}
+
+		default:
+		{
+			return STRING_DOT_EMPTY;
+			break;
+		}
 	}
-	return NULL;
 }
 
 

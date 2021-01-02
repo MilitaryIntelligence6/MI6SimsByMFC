@@ -50,15 +50,15 @@ BOOL SearchEngine::OnInitDialog()
 	searchlistscreen.SetBkColor(RGB(195, 195, 255));//表格的初始化
 	searchlistscreen.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES); // 整行选择、网格线
 	searchlistscreen.InsertColumn(0, _T("序号"), LVCFMT_FILL, 50);
-	searchlistscreen.InsertColumn(1, _T("姓名"), LVCFMT_CENTER, 100);
+	searchlistscreen.InsertColumn(1, _T("姓名"), LVCFMT_CENTER, 150);
 	searchlistscreen.InsertColumn(2, _T("性别"), LVCFMT_CENTER, 50);
 	searchlistscreen.InsertColumn(3, _T("学号"), LVCFMT_CENTER, 100);
-	searchlistscreen.InsertColumn(4, _T("班级"), LVCFMT_CENTER, 100);
+	searchlistscreen.InsertColumn(4, _T("班级"), LVCFMT_CENTER, 125);
 	searchlistscreen.InsertColumn(5, _T("数据结构"), LVCFMT_CENTER, 100);
 	searchlistscreen.InsertColumn(6, _T("计算机网络"), LVCFMT_CENTER, 100);
 	searchlistscreen.InsertColumn(7, _T("编译原理"), LVCFMT_CENTER, 100);
 	searchlistscreen.InsertColumn(8, _T("Android开发"), LVCFMT_CENTER, 100);
-	searchlistscreen.InsertColumn(9, _T("出生日期"), LVCFMT_CENTER, 100);
+	searchlistscreen.InsertColumn(9, _T("出生日期"), LVCFMT_CENTER, 125);
 
 	CheckRadioButton(GetDlgItem(IDC_RADIO_SNUM)->GetDlgCtrlID(), GetDlgItem(IDC_RADIO_SNUM)->GetDlgCtrlID(), GetDlgItem(IDC_RADIO_SNUM)->GetDlgCtrlID());//默认选中第一个radio
 

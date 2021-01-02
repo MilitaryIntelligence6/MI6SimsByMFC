@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sims", "Sims.vcxproj", "{F8A55AC5-8F37-44D1-B92A-511A82C5E3F2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MI6SimsSetup", "MI6SimsSetup\MI6SimsSetup.vdproj", "{8B4129F2-2434-48D2-A9A5-DA12EE0D50BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{F8A55AC5-8F37-44D1-B92A-511A82C5E3F2}.Release|x64.Build.0 = Release|x64
 		{F8A55AC5-8F37-44D1-B92A-511A82C5E3F2}.Release|x86.ActiveCfg = Release|Win32
 		{F8A55AC5-8F37-44D1-B92A-511A82C5E3F2}.Release|x86.Build.0 = Release|Win32
+		{8B4129F2-2434-48D2-A9A5-DA12EE0D50BC}.Debug|x64.ActiveCfg = Debug
+		{8B4129F2-2434-48D2-A9A5-DA12EE0D50BC}.Debug|x86.ActiveCfg = Debug
+		{8B4129F2-2434-48D2-A9A5-DA12EE0D50BC}.Release|x64.ActiveCfg = Release
+		{8B4129F2-2434-48D2-A9A5-DA12EE0D50BC}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
