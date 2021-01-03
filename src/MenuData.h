@@ -39,12 +39,12 @@ public:
 
 				//¡¾¸³ÖµÊı¾İÓò¡¿
 				node->student.num = head->student.num;
-				node->student.Chinese = head->student.Chinese;
+				node->student.dataStructure = head->student.dataStructure;
 				node->student.Birthday = head->student.Birthday;
-				node->student.Math = head->student.Math;
-				node->student.Ehglish = head->student.Ehglish;
+				node->student.computerNetwork = head->student.computerNetwork;
+				node->student.compilationPrinciple = head->student.compilationPrinciple;
 				node->student.ID = head->student.ID;
-				node->student.P_E_ = head->student.P_E_;
+				node->student.androidDevelopment = head->student.androidDevelopment;
 				node->student.Class = head->student.Class;
 				node->student.Sex = head->student.Sex;
 				node->student.Name = head->student.Name;

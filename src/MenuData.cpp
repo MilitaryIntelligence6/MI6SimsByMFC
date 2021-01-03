@@ -84,23 +84,23 @@ int MenuDataOrder::getGrade(LinkList p,int order)
 	switch (order)
 	{
 	case 11:
-		return p->student.Chinese;
+		return p->student.dataStructure;
 	case 12:
-		return p->student.Math;
+		return p->student.computerNetwork;
 	case 13:
-		return p->student.Ehglish;
+		return p->student.compilationPrinciple;
 	case 14:
-		return p->student.P_E_;
+		return p->student.androidDevelopment;
 	case 21:
 		//计算这个学生的总分
-		return p->student.Chinese + p->student.Math + p->student.Ehglish + p->student.P_E_;
+		return p->student.dataStructure + p->student.computerNetwork + p->student.compilationPrinciple + p->student.androidDevelopment;
 	case 22:
 		//平均分
-		return (p->student.Chinese + p->student.Math + p->student.Ehglish + p->student.P_E_) / 4;
+		return (p->student.dataStructure + p->student.computerNetwork + p->student.compilationPrinciple + p->student.androidDevelopment) / 4;
 	case 23:
 		//标准差
-		x = (p->student.Chinese + p->student.Math + p->student.Ehglish + p->student.P_E_) / 4;
-		return (p->student.Chinese - x) * (p->student.Chinese - x) + (p->student.Math) * (p->student.Math) + (p->student.Ehglish) * (p->student.Ehglish) + (p->student.P_E_) * (p->student.P_E_);
+		x = (p->student.dataStructure + p->student.computerNetwork + p->student.compilationPrinciple + p->student.androidDevelopment) / 4;
+		return (p->student.dataStructure - x) * (p->student.dataStructure - x) + (p->student.computerNetwork) * (p->student.computerNetwork) + (p->student.compilationPrinciple) * (p->student.compilationPrinciple) + (p->student.androidDevelopment) * (p->student.androidDevelopment);
 		break;
 	default:return p->student.num;
 		break;

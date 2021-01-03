@@ -15,10 +15,11 @@ typedef struct StuMessage
 	unsigned long long int ID = 41800000;	//学号
 	CString Class = NULL;		//班级
 	CString Birthday = NULL;	//生日
-	int Chinese = 0;
-	int Math = 0;
-	int Ehglish = 0;
-	int P_E_ = 0;
+	// 成绩应该用ArrayList之类的可变容器储存, 方便科目的添加;
+	int dataStructure = 0;
+	int computerNetwork = 0;
+	int compilationPrinciple = 0;
+	int androidDevelopment = 0;
 }Student;
 
 

@@ -351,13 +351,13 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 		tempText.Format(_T("%llu"), p->student.ID);	/////////////to
 		m_stlistct.SetItemText(i, 3, tempText);			//显示学号
 		m_stlistct.SetItemText(i, 4, p->student.Class);	//显示班级
-		tempText.Format(_T("%d"), p->student.Chinese);
+		tempText.Format(_T("%d"), p->student.dataStructure);
 		m_stlistct.SetItemText(i, 5, tempText);			//显示科目1成绩
-		tempText.Format(_T("%d"), p->student.Math);
+		tempText.Format(_T("%d"), p->student.computerNetwork);
 		m_stlistct.SetItemText(i, 6, tempText);			//显示科目2成绩
-		tempText.Format(_T("%d"), p->student.Ehglish);
+		tempText.Format(_T("%d"), p->student.compilationPrinciple);
 		m_stlistct.SetItemText(i, 7, tempText);			//显示科目3成绩
-		tempText.Format(_T("%d"), p->student.P_E_);
+		tempText.Format(_T("%d"), p->student.androidDevelopment);
 		m_stlistct.SetItemText(i, 8, tempText);			//显示科目4成绩
 		m_stlistct.SetItemText(i, 9, p->student.Birthday);//显示出生日期
 		//m_stlistct.SetItemState(i, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);//默认选中显示的最后一行//但是好像没有什么显示效果
@@ -406,13 +406,13 @@ void SimsDialog::FillANodeFromDlg(LinkList node)//从edit控件填入
 	GetDlgItemText((GetDlgItem(IDC_COMBO_CLASS)->GetDlgCtrlID()), node->student.Class);
 	GetDlgItemText((GetDlgItem(IDC_DATETIMEPICKER_BIRTHDAY)->GetDlgCtrlID()), node->student.Birthday);
 	GetDlgItemText((GetDlgItem(IDC_EDIT_CHINESE)->GetDlgCtrlID()), incomeText);
-	node->student.Chinese = _ttoi(incomeText);
+	node->student.dataStructure = _ttoi(incomeText);
 	GetDlgItemText((GetDlgItem(IDC_EDIT_MATH)->GetDlgCtrlID()), incomeText);
-	node->student.Math = _ttoi(incomeText);
+	node->student.computerNetwork = _ttoi(incomeText);
 	GetDlgItemText((GetDlgItem(IDC_EDIT_ENGLISH)->GetDlgCtrlID()), incomeText);
-	node->student.Ehglish = _ttoi(incomeText);
+	node->student.compilationPrinciple = _ttoi(incomeText);
 	GetDlgItemText((GetDlgItem(IDC_EDIT_PE)->GetDlgCtrlID()), incomeText);
-	node->student.P_E_ = _ttoi(incomeText);
+	node->student.androidDevelopment = _ttoi(incomeText);
 
 }
 
@@ -487,13 +487,13 @@ void SimsDialog::OnClickListScreen(NMHDR* pNMHDR, LRESULT* pResult)
 		m_databirthday.SetTime(mySetData);
 
 		//成绩：
-		tempText.Format(_T("%d"), ptempfromlistctl->student.Chinese);//CHINESE
+		tempText.Format(_T("%d"), ptempfromlistctl->student.dataStructure);//CHINESE
 		SetDlgItemText(IDC_EDIT_CHINESE, tempText);
-		tempText.Format(_T("%d"), ptempfromlistctl->student.Math);//MATH
+		tempText.Format(_T("%d"), ptempfromlistctl->student.computerNetwork);//MATH
 		SetDlgItemText(IDC_EDIT_MATH, tempText);
-		tempText.Format(_T("%d"), ptempfromlistctl->student.Ehglish);//ENGLISH
+		tempText.Format(_T("%d"), ptempfromlistctl->student.compilationPrinciple);//ENGLISH
 		SetDlgItemText(IDC_EDIT_ENGLISH, tempText);
-		tempText.Format(_T("%d"), ptempfromlistctl->student.P_E_);//PE
+		tempText.Format(_T("%d"), ptempfromlistctl->student.androidDevelopment);//PE
 		SetDlgItemText(IDC_EDIT_PE, tempText);
 	}
 
@@ -812,13 +812,13 @@ bool SimsDialog::FileSave(LinkList head, CString strFilePath)
 				strWriteData.Format(_T("\t女\t"));
 			csFile.WriteString(strWriteData);
 			csFile.WriteString(p->student.Class);
-			strWriteData.Format(_T(" \t%d\t"), p->student.Chinese);
+			strWriteData.Format(_T(" \t%d\t"), p->student.dataStructure);
 			csFile.WriteString(strWriteData);
-			strWriteData.Format(_T("%d\t"), p->student.Math);
+			strWriteData.Format(_T("%d\t"), p->student.computerNetwork);
 			csFile.WriteString(strWriteData);
-			strWriteData.Format(_T("%d\t"), p->student.Ehglish);
+			strWriteData.Format(_T("%d\t"), p->student.compilationPrinciple);
 			csFile.WriteString(strWriteData);
-			strWriteData.Format(_T("%d\t"), p->student.P_E_);
+			strWriteData.Format(_T("%d\t"), p->student.androidDevelopment);
 			csFile.WriteString(strWriteData);
 			csFile.WriteString(p->student.Birthday);
 			strWriteData.Format(_T(" \t"));
@@ -920,16 +920,16 @@ void SimsDialog::fillANodeFromTXT(LinkList node, CString strData, int iWhichData
 		node->student.Class = strData;
 		break;
 	case 6://Chinese
-		node->student.Chinese = _ttoi(strData);
+		node->student.dataStructure = _ttoi(strData);
 		break;
 	case 7://Math
-		node->student.Math = _ttoi(strData);
+		node->student.computerNetwork = _ttoi(strData);
 		break;
 	case 8://English
-		node->student.Ehglish = _ttoi(strData);
+		node->student.compilationPrinciple = _ttoi(strData);
 		break;
 	case 9://P.E.
-		node->student.P_E_ = _ttoi(strData);
+		node->student.androidDevelopment = _ttoi(strData);
 		break;
 	case 10://birthday
 		node->student.Birthday = strData;

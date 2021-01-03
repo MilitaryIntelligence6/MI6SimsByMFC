@@ -211,13 +211,13 @@ void SearchEngine::ShowANode(LinkList pnode)
 	tempText.Format(_T("%llu"), pnode->student.ID);	
 	searchlistscreen.SetItemText(i, 3, tempText);			//显示学号
 	searchlistscreen.SetItemText(i, 4, pnode->student.Class);	//显示班级
-	tempText.Format(_T("%d"), pnode->student.Chinese);
+	tempText.Format(_T("%d"), pnode->student.dataStructure);
 	searchlistscreen.SetItemText(i, 5, tempText);			//显示数据结构成绩
-	tempText.Format(_T("%d"), pnode->student.Math);
+	tempText.Format(_T("%d"), pnode->student.computerNetwork);
 	searchlistscreen.SetItemText(i, 6, tempText);			//显示计算机网络成绩
-	tempText.Format(_T("%d"), pnode->student.Ehglish);
+	tempText.Format(_T("%d"), pnode->student.compilationPrinciple);
 	searchlistscreen.SetItemText(i, 7, tempText);			//显示英语成绩
-	tempText.Format(_T("%d"), pnode->student.P_E_);
+	tempText.Format(_T("%d"), pnode->student.androidDevelopment);
 	searchlistscreen.SetItemText(i, 8, tempText);			//显示体育成绩
 	searchlistscreen.SetItemText(i, 9, pnode->student.Birthday);//显示出生日期
 
