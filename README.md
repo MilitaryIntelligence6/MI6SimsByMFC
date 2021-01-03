@@ -1,4 +1,4 @@
-# MI6 SIMS By Cpp
+# MI6 SIMS By MFC
 #### 暂时终版, 期末预习了, 还有一些TODO, 老师见谅;
 - MFC学生管理系统, Cpp大作业;
 
