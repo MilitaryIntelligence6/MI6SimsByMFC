@@ -69,14 +69,14 @@
     <ClInclude Include="src\SearchEngine.h">
       <Filter>src\main\cpp\cn\misection\sims\entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\Sims.h">
-      <Filter>src\main\cpp\cn\misection\sims\entity</Filter>
-    </ClInclude>
     <ClInclude Include="src\SimsDialog.h">
       <Filter>src\main\cpp\cn\misection\sims\controller</Filter>
     </ClInclude>
     <ClInclude Include="src\targetver.h">
       <Filter>src\main\cpp\cn\misection\sims\dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SimsApplication.h">
+      <Filter>src\main\cpp\cn\misection\sims\entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,11 +95,11 @@
     <ClCompile Include="src\SearchEngine.cpp">
       <Filter>src\main\cpp\cn\misection\sims\entity\impl</Filter>
     </ClCompile>
-    <ClCompile Include="src\Sims.cpp">
-      <Filter>src\main\cpp\cn\misection\sims\entity\impl</Filter>
-    </ClCompile>
     <ClCompile Include="src\SimsDialog.cpp">
       <Filter>src\main\cpp\cn\misection\sims\controller\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimsApplication.cpp">
+      <Filter>src\main\cpp\cn\misection\sims\entity\impl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 //
 
 #include "pch.h"
-#include "Sims.h"
+#include "SimsApplication.h"
 #include "DeleteDialog.h"
 #include "afxdialogex.h"
 
@@ -48,9 +48,9 @@ BOOL DeleteDialog::OnInitDialog()
     CString tempText;
     tempText.Format(_T("%d"), pnodedelete->student.num);
     SetDlgItemText(GetDlgItem(IDC_STATIC_DSNUM)->GetDlgCtrlID(), tempText);
-    tempText = pnodedelete->student.Name;//姓名
+    tempText = pnodedelete->student.name;//姓名
     SetDlgItemText(IDC_STATIC_DSNAME, tempText);
-    if (pnodedelete->student.Sex == 1)//性别
+    if (pnodedelete->student.sex == 1)//性别
     {
         tempText = _T("男");
         SetDlgItemText(GetDlgItem(IDC_STATIC_DSSEX)->GetDlgCtrlID(), tempText);
@@ -59,10 +59,10 @@ BOOL DeleteDialog::OnInitDialog()
         tempText = _T("女");
         SetDlgItemText(GetDlgItem(IDC_STATIC_DSSEX)->GetDlgCtrlID(), tempText);
     }
-    tempText.Format(_T("%llu"), pnodedelete->student.ID);    //学号
+    tempText.Format(_T("%llu"), pnodedelete->student.id);    //学号
     SetDlgItemText(IDC_STATIC_DSID, tempText);
-    SetDlgItemText(IDC_STATIC_DSCLASS, pnodedelete->student.Class);//班级
-    SetDlgItemText(IDC_STATIC_DSBIRTHDAY, pnodedelete->student.Birthday);
+    SetDlgItemText(IDC_STATIC_DSCLASS, pnodedelete->student.clazz);//班级
+    SetDlgItemText(IDC_STATIC_DSBIRTHDAY, pnodedelete->student.birthday);
     tempText.Format(_T("%d"), pnodedelete->student.dataStructure);//CHINESE
     SetDlgItemText(IDC_STATIC_DSCHINESE, tempText);
     tempText.Format(_T("%d"), pnodedelete->student.computerNetwork);//MATH
@@ -80,13 +80,13 @@ BOOL DeleteDialog::OnInitDialog()
 void DeleteDialog::OnBnClickedButtonDeleteok()
 {
     // TODO: 在此添加控件通知处理程序代码
-    pnodedelete->before->next = pnodedelete->next;
+    pnodedelete->prev->next = pnodedelete->next;
     if (pnodedelete->next == NULL)
     {
-        *thetail = pnodedelete->before;
+        *thetail = pnodedelete->prev;
     } else
     {
-        pnodedelete->next->before = pnodedelete->before;
+        pnodedelete->next->prev = pnodedelete->prev;
         LinkList p = pnodedelete->next;
         delete pnodedelete;
         while (p != NULL)
@@ -121,9 +121,9 @@ void DeleteDialog::ShowOnMainList(LinkList head)
 
         tempText.Format(_T("%d"), p->student.num);        //自定义的序号
         m_mainlist->InsertItem(i, tempText);                //创建新的行并显示序号
-        tempText = p->student.Name;
+        tempText = p->student.name;
         m_mainlist->SetItemText(i, 1, tempText);        //显示姓名
-        if (p->student.Sex == 1)
+        if (p->student.sex == 1)
         {
             tempText.Format(_T("男"));
         } else
@@ -131,9 +131,9 @@ void DeleteDialog::ShowOnMainList(LinkList head)
             tempText.Format(_T("女"));
         }
         m_mainlist->SetItemText(i, 2, tempText);            //显示性别
-        tempText.Format(_T("%llu"), p->student.ID);    /////////////to
+        tempText.Format(_T("%llu"), p->student.id);    /////////////to
         m_mainlist->SetItemText(i, 3, tempText);            //显示学号
-        m_mainlist->SetItemText(i, 4, p->student.Class);    //显示班级
+        m_mainlist->SetItemText(i, 4, p->student.clazz);    //显示班级
         tempText.Format(_T("%d"), p->student.dataStructure);
         m_mainlist->SetItemText(i, 5, tempText);            //显示科目1成绩
         tempText.Format(_T("%d"), p->student.computerNetwork);
@@ -142,7 +142,7 @@ void DeleteDialog::ShowOnMainList(LinkList head)
         m_mainlist->SetItemText(i, 7, tempText);            //显示科目3成绩
         tempText.Format(_T("%d"), p->student.androidDevelopment);
         m_mainlist->SetItemText(i, 8, tempText);            //显示科目4成绩
-        m_mainlist->SetItemText(i, 9, p->student.Birthday);//显示生日
+        m_mainlist->SetItemText(i, 9, p->student.birthday);//显示生日
 
         p = p->next;
         i++;

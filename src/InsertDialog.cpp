@@ -3,7 +3,7 @@
 
 
 #include "pch.h"
-#include "Sims.h"
+#include "SimsApplication.h"
 #include "InsertDialog.h"
 #include "afxdialogex.h"
 #include "SimsDialog.h"
@@ -91,54 +91,6 @@ BOOL InsertDialog::OnInitDialog()
 }
 
 
-/*void InsertDialog::OnBnClickedOk()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	//1.让指针指向要修改的位置
-	if (IsAdd)
-	{
-		pnode = pnode->next;
-	}
-
-	//2.插入一个节点到这个位置
-	//申请空间
-	LinkList insertnode = new(Node);
-	//改序号域
-	insertnode->student.num = pnode->student.num;
-	//改数据域：（复制过来的）
-	CString incomeText;
-	GetDlgItemText((GetDlgItem(IDC_EDIT_NAME)->GetDlgCtrlID()), insertnode->student.Name);
-	if (GetCheckedRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL) == IDC_RADIO_SEX_BOY)
-		insertnode->student.Sex = 1;
-	else if (GetCheckedRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL) == IDC_RADIO_SEX_GIRL)
-		insertnode->student.Sex = 0;
-	GetDlgItemText((GetDlgItem(IDC_EDIT_ID)->GetDlgCtrlID()), incomeText);
-	insertnode->student.ID = _tcstoull(incomeText, 0, 10);
-	GetDlgItemText((GetDlgItem(IDC_COMBO_CLASS)->GetDlgCtrlID()), insertnode->student.Class);
-	GetDlgItemText((GetDlgItem(IDC_DATETIMEPICKER_BIRTHDAY)->GetDlgCtrlID()), insertnode->student.Birthday);
-	GetDlgItemText((GetDlgItem(IDC_EDIT_CHINESE)->GetDlgCtrlID()), incomeText);
-	insertnode->student.Chinese = _ttoi(incomeText);
-	GetDlgItemText((GetDlgItem(IDC_EDIT_MATH)->GetDlgCtrlID()), incomeText);
-	insertnode->student.Math = _ttoi(incomeText);
-	GetDlgItemText((GetDlgItem(IDC_EDIT_ENGLISH)->GetDlgCtrlID()), incomeText);
-	insertnode->student.Ehglish = _ttoi(incomeText);
-	GetDlgItemText((GetDlgItem(IDC_EDIT_PE)->GetDlgCtrlID()), incomeText);
-	insertnode->student.P_E_ = _ttoi(incomeText);
-	//改指针域：
-	insertnode->before = pnode->before;
-	pnode->before->next = insertnode;
-	insertnode->next = pnode;
-	//3.修改后面的节点内的序号域：
-	while (pnode!=NULL)
-	{
-		pnode->student.num = pnode->student.num + 1;//我也想直接写++，但是书上这样
-		pnode = pnode->next;
-	}
-
-	CDialogEx::OnOK();
-}*/
-
-
 void InsertDialog::OnBnClickedRadioHere()
 {
     // TODO: 在此添加控件通知处理程序代码
@@ -167,15 +119,15 @@ void InsertDialog::OnBnClickedButtonInsertok()
     insertnode->student.num = pnode->student.num;
     //改数据域;
     CString incomeText;
-    GetDlgItemText((GetDlgItem(IDC_EDIT_NAME)->GetDlgCtrlID()), insertnode->student.Name);
+    GetDlgItemText((GetDlgItem(IDC_EDIT_NAME)->GetDlgCtrlID()), insertnode->student.name);
     if (GetCheckedRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL) == IDC_RADIO_SEX_BOY)
-        insertnode->student.Sex = 1;
+        insertnode->student.sex = 1;
     else if (GetCheckedRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL) == IDC_RADIO_SEX_GIRL)
-        insertnode->student.Sex = 0;
+        insertnode->student.sex = 0;
     GetDlgItemText((GetDlgItem(IDC_EDIT_ID)->GetDlgCtrlID()), incomeText);
-    insertnode->student.ID = _tcstoull(incomeText, 0, 10);
-    GetDlgItemText((GetDlgItem(IDC_COMBO_CLASS)->GetDlgCtrlID()), insertnode->student.Class);
-    GetDlgItemText((GetDlgItem(IDC_DATETIMEPICKER_BIRTHDAY)->GetDlgCtrlID()), insertnode->student.Birthday);
+    insertnode->student.id = _tcstoull(incomeText, 0, 10);
+    GetDlgItemText((GetDlgItem(IDC_COMBO_CLASS)->GetDlgCtrlID()), insertnode->student.clazz);
+    GetDlgItemText((GetDlgItem(IDC_DATETIMEPICKER_BIRTHDAY)->GetDlgCtrlID()), insertnode->student.birthday);
     GetDlgItemText((GetDlgItem(IDC_EDIT_CHINESE)->GetDlgCtrlID()), incomeText);
     insertnode->student.dataStructure = _ttoi(incomeText);
     GetDlgItemText((GetDlgItem(IDC_EDIT_MATH)->GetDlgCtrlID()), incomeText);
@@ -185,10 +137,10 @@ void InsertDialog::OnBnClickedButtonInsertok()
     GetDlgItemText((GetDlgItem(IDC_EDIT_PE)->GetDlgCtrlID()), incomeText);
     insertnode->student.androidDevelopment = _ttoi(incomeText);
     //改指针域：
-    insertnode->before = pnode->before;
-    pnode->before->next = insertnode;
+    insertnode->prev = pnode->prev;
+    pnode->prev->next = insertnode;
     insertnode->next = pnode;
-    pnode->before = insertnode;
+    pnode->prev = insertnode;
     //3.修改后面的节点内的序号域：
     while (pnode != NULL)//pnode变成头指针才退出循环
     {
@@ -217,9 +169,9 @@ void InsertDialog::ShowOnMainList(LinkList head)
 
         tempText.Format(_T("%d"), p->student.num);        //自定义的序号
         m_mainlist->InsertItem(i, tempText);                //创建新的行并显示序号
-        tempText = p->student.Name;
+        tempText = p->student.name;
         m_mainlist->SetItemText(i, 1, tempText);        //显示姓名
-        if (p->student.Sex == 1)
+        if (p->student.sex == 1)
         {
             tempText.Format(_T("男"));
         } else
@@ -227,9 +179,9 @@ void InsertDialog::ShowOnMainList(LinkList head)
             tempText.Format(_T("女"));
         }
         m_mainlist->SetItemText(i, 2, tempText);            //显示性别
-        tempText.Format(_T("%llu"), p->student.ID);
+        tempText.Format(_T("%llu"), p->student.id);
         m_mainlist->SetItemText(i, 3, tempText);            //显示学号
-        m_mainlist->SetItemText(i, 4, p->student.Class);    //显示班级
+        m_mainlist->SetItemText(i, 4, p->student.clazz);    //显示班级
         tempText.Format(_T("%d"), p->student.dataStructure);
         m_mainlist->SetItemText(i, 5, tempText);            //显示数据结构成绩
         tempText.Format(_T("%d"), p->student.computerNetwork);
@@ -238,7 +190,7 @@ void InsertDialog::ShowOnMainList(LinkList head)
         m_mainlist->SetItemText(i, 7, tempText);            //显示英语成绩
         tempText.Format(_T("%d"), p->student.androidDevelopment);
         m_mainlist->SetItemText(i, 8, tempText);            //显示体育成绩
-        m_mainlist->SetItemText(i, 9, p->student.Birthday);//显示生日
+        m_mainlist->SetItemText(i, 9, p->student.birthday);//显示生日
 
         p = p->next;
         i++;

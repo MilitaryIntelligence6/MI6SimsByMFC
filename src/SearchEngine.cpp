@@ -2,7 +2,7 @@
 //
 
 #include "pch.h"
-#include "Sims.h"
+#include "SimsApplication.h"
 #include "SearchEngine.h"
 #include "afxdialogex.h"
 
@@ -144,17 +144,17 @@ LinkList SearchEngine::GetANode(int num, unsigned long long int id, CString name
 			return pnode;
 		}
 			  break;
-		case 2:if (pnode->student.ID==id)
+		case 2:if (pnode->student.id==id)
 		{
 			return pnode;
 		}
 			  break;
-		case 3:if (pnode->student.Name==name)
+		case 3:if (pnode->student.name==name)
 		{
 			return pnode;
 		}
 			  break;
-		case 4:if (pnode->student.Class==inclass)//有bug
+		case 4:if (pnode->student.clazz==inclass)//有bug
 		{
 			return pnode;
 		}
@@ -197,9 +197,9 @@ void SearchEngine::ShowANode(LinkList pnode)
 	// TODO: 在此处添加实现代码.
 	tempText.Format(_T("%d"), pnode->student.num);
 	searchlistscreen.InsertItem(i, tempText);
-	tempText = pnode->student.Name;
+	tempText = pnode->student.name;
 	searchlistscreen.SetItemText(i, 1, tempText);			//显示姓名
-	if (pnode->student.Sex == 1)
+	if (pnode->student.sex == 1)
 	{
 		tempText.Format(_T("男"));
 	}
@@ -208,9 +208,9 @@ void SearchEngine::ShowANode(LinkList pnode)
 		tempText.Format(_T("女"));
 	}
 	searchlistscreen.SetItemText(i, 2, tempText);			//显示性别
-	tempText.Format(_T("%llu"), pnode->student.ID);	
+	tempText.Format(_T("%llu"), pnode->student.id);	
 	searchlistscreen.SetItemText(i, 3, tempText);			//显示学号
-	searchlistscreen.SetItemText(i, 4, pnode->student.Class);	//显示班级
+	searchlistscreen.SetItemText(i, 4, pnode->student.clazz);	//显示班级
 	tempText.Format(_T("%d"), pnode->student.dataStructure);
 	searchlistscreen.SetItemText(i, 5, tempText);			//显示数据结构成绩
 	tempText.Format(_T("%d"), pnode->student.computerNetwork);
@@ -219,6 +219,6 @@ void SearchEngine::ShowANode(LinkList pnode)
 	searchlistscreen.SetItemText(i, 7, tempText);			//显示英语成绩
 	tempText.Format(_T("%d"), pnode->student.androidDevelopment);
 	searchlistscreen.SetItemText(i, 8, tempText);			//显示体育成绩
-	searchlistscreen.SetItemText(i, 9, pnode->student.Birthday);//显示出生日期
+	searchlistscreen.SetItemText(i, 9, pnode->student.birthday);//显示出生日期
 
 }

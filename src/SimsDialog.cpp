@@ -4,7 +4,7 @@
 
 #include "pch.h"
 #include "framework.h"
-#include "Sims.h"
+#include "SimsApplication.h"
 #include "SimsDialog.h"
 #include "afxdialogex.h"
 
@@ -35,12 +35,11 @@ InsertDialog* pDlg;
 
 #define SAMPLE_PATH "./sample/example.info"
 
-// 用于应用程序“关于”菜单项的 CAboutDlg 对话框
-
-class CAboutDlg : public CDialogEx
+// 用于应用程序“关于”菜单项的 AboutDialog 对话框;
+class AboutDialog : public CDialogEx
 {
 public:
-	CAboutDlg();
+	AboutDialog();
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
@@ -57,17 +56,17 @@ public:
 	afx_msg void OnBnClickedOk();
 };
 
-CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
+AboutDialog::AboutDialog() : CDialogEx(IDD_ABOUTBOX)
 {
 }
 
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+void AboutDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-	ON_BN_CLICKED(IDOK, &CAboutDlg::OnBnClickedOk)
+BEGIN_MESSAGE_MAP(AboutDialog, CDialogEx)
+	ON_BN_CLICKED(IDOK, &AboutDialog::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -199,7 +198,7 @@ BOOL SimsDialog::OnInitDialog()
 	// C 写法 if (head)
 	if (head != NULL)//空间申请成功
 	{
-		head->before = head;
+		head->prev = head;
 		head->next = NULL;
 		tail = head;
 		head->student.num = 0;
@@ -231,7 +230,7 @@ void SimsDialog::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
-		CAboutDlg dlgAbout;
+		AboutDialog dlgAbout;
 		dlgAbout.DoModal();
 	}
 	else
@@ -287,10 +286,10 @@ void SimsDialog::OnBnClickedButtonSave()
 	PNode node = new(Node);
 
 	node->student.num = tail->student.num + 1;	//默认修改序号
-	FillANodeFromDlg(node);						//填充数据域
+	fillANodeFromDialog(node);						//填充数据域
 
 	node->next = NULL;							//【对指针域进行修改】
-	node->before = tail;
+	node->prev = tail;
 	tail->next = node;//插入数据。
 	tail = node;
 
@@ -299,15 +298,16 @@ void SimsDialog::OnBnClickedButtonSave()
 		PNode node = new(Node);
 
 		node->student.num = tail->student.num + 1;	//默认修改序号
-		FillANodeFromDlg(node);						//填充数据域
+		fillANodeFromDialog(node);						//填充数据域
 
 		node->next = NULL;							//【对指针域进行修改】
-		node->before = ordertail;
+		node->prev = ordertail;
 		ordertail->next = node;//插入数据。
 		ordertail = node;
 	}
 	ShowOnScreen(head, orderhead);
 }
+
 
 //如果show了一个空的链表，就返回0，否则1
 bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
@@ -337,9 +337,9 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 
 		tempText.Format(_T("%d"), p->student.num);		//自定义的序号
 		m_stlistct.InsertItem(i, tempText);				//创建新的行并显示序号
-		tempText = p->student.Name;
+		tempText = p->student.name;
 		m_stlistct.SetItemText(i, 1, tempText); 		//显示姓名
-		if (p->student.Sex==1)
+		if (p->student.sex==1)
 		{
 			tempText.Format(_T("男"));
 		}
@@ -348,9 +348,9 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 			tempText.Format(_T("女"));
 		}
 		m_stlistct.SetItemText(i,2, tempText);			//显示性别
-		tempText.Format(_T("%llu"), p->student.ID);	/////////////to
+		tempText.Format(_T("%llu"), p->student.id);	/////////////to
 		m_stlistct.SetItemText(i, 3, tempText);			//显示学号
-		m_stlistct.SetItemText(i, 4, p->student.Class);	//显示班级
+		m_stlistct.SetItemText(i, 4, p->student.clazz);	//显示班级
 		tempText.Format(_T("%d"), p->student.dataStructure);
 		m_stlistct.SetItemText(i, 5, tempText);			//显示科目1成绩
 		tempText.Format(_T("%d"), p->student.computerNetwork);
@@ -359,7 +359,7 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 		m_stlistct.SetItemText(i, 7, tempText);			//显示科目3成绩
 		tempText.Format(_T("%d"), p->student.androidDevelopment);
 		m_stlistct.SetItemText(i, 8, tempText);			//显示科目4成绩
-		m_stlistct.SetItemText(i, 9, p->student.Birthday);//显示出生日期
+		m_stlistct.SetItemText(i, 9, p->student.birthday);//显示出生日期
 		//m_stlistct.SetItemState(i, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);//默认选中显示的最后一行//但是好像没有什么显示效果
 
 		p = p->next;
@@ -373,7 +373,7 @@ bool SimsDialog::ShowOnScreen(LinkList defhead,LinkList orderhead)
 void SimsDialog::OnBnClickedButtonChange()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	FillANodeFromDlg(ptempfromlistctl);//修改数据域就好
+	fillANodeFromDialog(ptempfromlistctl);//修改数据域就好
 	if (isOrdered)
 	{
 		LinkList p = head->next;
@@ -381,7 +381,7 @@ void SimsDialog::OnBnClickedButtonChange()
 		{
 			if (p->student.num == ptempfromlistctl->student.num)
 			{
-				FillANodeFromDlg(p);
+				fillANodeFromDialog(p);
 			}
 			else p = p->next;
 		}
@@ -391,20 +391,20 @@ void SimsDialog::OnBnClickedButtonChange()
 
 
 // 封装：从对话框的edit框填入的内容获取cstring，填入p指向的空间【对数据域进行写入】
-void SimsDialog::FillANodeFromDlg(LinkList node)//从edit控件填入
+void SimsDialog::fillANodeFromDialog(LinkList node)//从edit控件填入
 {
 	// TODO: 在此处添加实现代码.
 
 	CString incomeText;
-	GetDlgItemText((GetDlgItem(IDC_EDIT_NAME)->GetDlgCtrlID()), node->student.Name);
+	GetDlgItemText((GetDlgItem(IDC_EDIT_NAME)->GetDlgCtrlID()), node->student.name);
 	if (GetCheckedRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL) == IDC_RADIO_SEX_BOY)
-		node->student.Sex = 1;
+		node->student.sex = 1;
 	else if (GetCheckedRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL) == IDC_RADIO_SEX_GIRL)
-		node->student.Sex = 0;
+		node->student.sex = 0;
 	GetDlgItemText((GetDlgItem(IDC_EDIT_ID)->GetDlgCtrlID()), incomeText);
-	node->student.ID = _tcstoull(incomeText, 0, 10);
-	GetDlgItemText((GetDlgItem(IDC_COMBO_CLASS)->GetDlgCtrlID()), node->student.Class);
-	GetDlgItemText((GetDlgItem(IDC_DATETIMEPICKER_BIRTHDAY)->GetDlgCtrlID()), node->student.Birthday);
+	node->student.id = _tcstoull(incomeText, 0, 10);
+	GetDlgItemText((GetDlgItem(IDC_COMBO_CLASS)->GetDlgCtrlID()), node->student.clazz);
+	GetDlgItemText((GetDlgItem(IDC_DATETIMEPICKER_BIRTHDAY)->GetDlgCtrlID()), node->student.birthday);
 	GetDlgItemText((GetDlgItem(IDC_EDIT_CHINESE)->GetDlgCtrlID()), incomeText);
 	node->student.dataStructure = _ttoi(incomeText);
 	GetDlgItemText((GetDlgItem(IDC_EDIT_MATH)->GetDlgCtrlID()), incomeText);
@@ -440,7 +440,7 @@ void SimsDialog::OnClickListScreen(NMHDR* pNMHDR, LRESULT* pResult)
 		{
 			//str.Format(_T("选中了第%d行"), i);
 			//AfxMessageBox(str);
-			SetDlgItemText(IDC_STATIC_CLICK_SHOW, ptempfromlistctl->student.Name);
+			SetDlgItemText(IDC_STATIC_CLICK_SHOW, ptempfromlistctl->student.name);
 			break;
 		}
 		ptempfromlistctl = ptempfromlistctl->next;
@@ -454,10 +454,10 @@ void SimsDialog::OnClickListScreen(NMHDR* pNMHDR, LRESULT* pResult)
 		tempText.Format(_T("%d"), ptempfromlistctl->student.num);//序号
 		SetDlgItemText(IDC_EDIT_ORDER, tempText);
 
-		tempText = ptempfromlistctl->student.Name;//姓名
+		tempText = ptempfromlistctl->student.name;//姓名
 		SetDlgItemText(IDC_EDIT_NAME, tempText);
 
-		if (ptempfromlistctl->student.Sex == 1)//性别
+		if (ptempfromlistctl->student.sex == 1)//性别
 		{
 			CheckRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL, IDC_RADIO_SEX_BOY);
 		}
@@ -465,13 +465,13 @@ void SimsDialog::OnClickListScreen(NMHDR* pNMHDR, LRESULT* pResult)
 		{
 			CheckRadioButton(IDC_RADIO_SEX_BOY, IDC_RADIO_SEX_GIRL, IDC_RADIO_SEX_GIRL);
 		}
-		tempText.Format(_T("%llu"), ptempfromlistctl->student.ID);	//学号
+		tempText.Format(_T("%llu"), ptempfromlistctl->student.id);	//学号
 		SetDlgItemText(IDC_EDIT_ID, tempText);
-		SetDlgItemText(IDC_COMBO_CLASS, ptempfromlistctl->student.Class);//班级
+		SetDlgItemText(IDC_COMBO_CLASS, ptempfromlistctl->student.clazz);//班级
 		//出生日期
 		COleDateTime mySetData;
 		int Cdate[3] = { 1,1,1 };
-		CString strDay = ptempfromlistctl->student.Birthday;
+		CString strDay = ptempfromlistctl->student.birthday;
 		for (int i = 0; i < 2; i++)
 		{
 			int iPos = 0;
@@ -626,7 +626,7 @@ void SimsDialog::OnMenuOpenOneFile()
 	//head = (LinkList)new Node;
 	if (head != NULL)//空间申请成功
 	{
-		head->before = head;
+		head->prev = head;
 		head->next = NULL;
 		tail = head;
 		head->student.num = 0;
@@ -659,7 +659,7 @@ void SimsDialog::OnMenuOpenOneFile()
 
 		//【指针域修改】
 		node->next = NULL;							
-		node->before = tail;	//后插法
+		node->prev = tail;	//后插法
 		tail->next = node;
 		tail = node;
 
@@ -669,7 +669,7 @@ void SimsDialog::OnMenuOpenOneFile()
 		{
 			tempText = strData.Left(iPos);//把制表符前的字符串给tempText
 			//调用一个函数把tempText赋值给一个数据节点。
-			fillANodeFromTXT(node, tempText, studentDataOf);
+			fillANodeFromTable(node, tempText, studentDataOf);
 			studentDataOf++;
 			strData.Delete(0, iPos+1);			//删除头部数据
 			//函数:int Delete(int nIndex,int nCount = 1);返回值是被删除前的字符串的长度，nIndex是第一个被删除的字符索引，nCount是删除几个字符。当nCount过大，没有足够的字符删除时，此函数不执行。
@@ -709,7 +709,7 @@ void SimsDialog::OnMenuOpenOneFile(CString filePath)
 	//head = (LinkList)new Node;
 	if (head != NULL)//空间申请成功
 	{
-		head->before = head;
+		head->prev = head;
 		head->next = NULL;
 		tail = head;
 		head->student.num = 0;
@@ -742,7 +742,7 @@ void SimsDialog::OnMenuOpenOneFile(CString filePath)
 
 		//【指针域修改】
 		node->next = NULL;
-		node->before = tail;	//后插法
+		node->prev = tail;	//后插法
 		tail->next = node;
 		tail = node;
 
@@ -752,7 +752,7 @@ void SimsDialog::OnMenuOpenOneFile(CString filePath)
 		{
 			tempText = strData.Left(iPos);//把制表符前的字符串给tempText
 			//调用一个函数把tempText赋值给一个数据节点。
-			fillANodeFromTXT(node, tempText, studentDataOf);
+			fillANodeFromTable(node, tempText, studentDataOf);
 			studentDataOf++;
 			strData.Delete(0, iPos + 1);			//删除头部数据
 			//函数:int Delete(int nIndex,int nCount = 1);返回值是被删除前的字符串的长度，nIndex是第一个被删除的字符索引，nCount是删除几个字符。当nCount过大，没有足够的字符删除时，此函数不执行。
@@ -803,15 +803,15 @@ bool SimsDialog::FileSave(LinkList head, CString strFilePath)
 		{
 			strWriteData.Format(_T("%d\t"), p->student.num);
 			csFile.WriteString(strWriteData);
-			strWriteData.Format(_T("%llu\t"), p->student.ID);
+			strWriteData.Format(_T("%llu\t"), p->student.id);
 			csFile.WriteString(strWriteData);
-			csFile.WriteString(p->student.Name);
-			if (p->student.Sex == 1)
+			csFile.WriteString(p->student.name);
+			if (p->student.sex == 1)
 				strWriteData.Format(_T("\t男\t"));
 			else
 				strWriteData.Format(_T("\t女\t"));
 			csFile.WriteString(strWriteData);
-			csFile.WriteString(p->student.Class);
+			csFile.WriteString(p->student.clazz);
 			strWriteData.Format(_T(" \t%d\t"), p->student.dataStructure);
 			csFile.WriteString(strWriteData);
 			strWriteData.Format(_T("%d\t"), p->student.computerNetwork);
@@ -820,7 +820,7 @@ bool SimsDialog::FileSave(LinkList head, CString strFilePath)
 			csFile.WriteString(strWriteData);
 			strWriteData.Format(_T("%d\t"), p->student.androidDevelopment);
 			csFile.WriteString(strWriteData);
-			csFile.WriteString(p->student.Birthday);
+			csFile.WriteString(p->student.birthday);
 			strWriteData.Format(_T(" \t"));
 			csFile.WriteString(strWriteData);
 
@@ -888,7 +888,7 @@ CString SimsDialog::getFilePath(bool isRead)
 
 
 // 将strData填入node的第iWitchData个数据内
-void SimsDialog::fillANodeFromTXT(LinkList node, CString strData, int iWhichData)
+void SimsDialog::fillANodeFromTable(LinkList node, CString strData, int iWhichData)
 {
 	// TODO: 在此处添加实现代码.
 	switch (iWhichData+1)
@@ -901,23 +901,23 @@ void SimsDialog::fillANodeFromTXT(LinkList node, CString strData, int iWhichData
 	case 2://id
 		unsigned long long int id;
 		id = _tcstoull(strData, 0, 10);
-		node->student.ID = id;
+		node->student.id = id;
 		break;
 	case 3://name
-		node->student.Name = strData;
+		node->student.name = strData;
 		break;
 	case 4://sex
 		if (strData==L"男")
 		{
-			node->student.Sex = 1;
+			node->student.sex = 1;
 		}
 		else
 		{
-			node->student.Sex = 0;
+			node->student.sex = 0;
 		}
 		break;
 	case 5://class
-		node->student.Class = strData;
+		node->student.clazz = strData;
 		break;
 	case 6://Chinese
 		node->student.dataStructure = _ttoi(strData);
@@ -932,7 +932,7 @@ void SimsDialog::fillANodeFromTXT(LinkList node, CString strData, int iWhichData
 		node->student.androidDevelopment = _ttoi(strData);
 		break;
 	case 10://birthday
-		node->student.Birthday = strData;
+		node->student.birthday = strData;
 		break;
 	default:
 		break;
@@ -947,7 +947,7 @@ void SimsDialog::freeAList(LinkList head)
 	LinkList p;
 	while (tail->student.num!=0)
 	{
-		p = tail->before;
+		p = tail->prev;
 		free(tail);
 		tail = p;
 	}
@@ -971,7 +971,7 @@ void SimsDialog::OnMenuSaveSelfFile()
 void SimsDialog::OnShowMI6()
 {
 	// TODO: 在此添加命令处理程序代码
-	CAboutDlg* pDlg = new CAboutDlg;
+	AboutDialog* pDlg = new AboutDialog;
 	pDlg->Create(IDD_ABOUTBOX, this);
 	pDlg->ShowWindow(SW_SHOW);
 }
@@ -1077,13 +1077,13 @@ void SimsDialog::MakeOrderList()
 		LinkList p = ordertail;
 		while (ordertail->student.num != 0)
 		{
-			p = ordertail->before;
+			p = ordertail->prev;
 			free(ordertail);
 			ordertail = p;
 		}
 		free(orderhead);
 	}
-	MenuDataOrder orderdata(head, tail, Order);
+	MenuData orderdata(head, tail, Order);
 	orderhead = orderdata.myhead;
 	ordertail = orderdata.mytail;
 	isOrdered = 1;
@@ -1133,7 +1133,7 @@ void SimsDialog::OnLvnItemchangedListScreen(NMHDR* pNMHDR, LRESULT* pResult)
 }
 
 
-void CAboutDlg::OnBnClickedOk()
+void AboutDialog::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CDialogEx::OnOK();

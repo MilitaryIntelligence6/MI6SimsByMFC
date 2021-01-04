@@ -6,6 +6,7 @@
 
 // DeleteDialog 对话框
 
+
 class DeleteDialog : public CDialogEx
 {
     DECLARE_DYNAMIC(DeleteDialog)

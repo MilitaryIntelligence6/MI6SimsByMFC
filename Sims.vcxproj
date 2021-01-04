@@ -190,7 +190,7 @@
     <ClInclude Include="src\LinkList.h" />
     <ClInclude Include="src\MenuData.h" />
     <ClInclude Include="src\SearchEngine.h" />
-    <ClInclude Include="src\Sims.h" />
+    <ClInclude Include="src\SimsApplication.h" />
     <ClInclude Include="src\SimsDialog.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Resource.h" />
@@ -200,7 +200,7 @@
     <ClCompile Include="src\DeleteDialog.cpp" />
     <ClCompile Include="src\InsertDialog.cpp" />
     <ClCompile Include="src\MenuData.cpp" />
-    <ClCompile Include="src\Sims.cpp" />
+    <ClCompile Include="src\SimsApplication.cpp" />
     <ClCompile Include="src\SimsDialog.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

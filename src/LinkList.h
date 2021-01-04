@@ -6,29 +6,28 @@
 #include <afxstr.h>
 
 
-//单链表类型定义
-typedef struct StuMessage
+// 学生信息数据struct节点定义
+typedef struct StudentInfo
 {
 	int num = 0;	//序号
-	CString Name = _T("foobar");		//姓名
-	bool Sex = 1;			//性别
-	unsigned long long int ID = 41800000;	//学号
-	CString Class = NULL;		//班级
-	CString Birthday = NULL;	//生日
+	CString name = _T("foobar");		//姓名
+	bool sex = 1;			//性别
+	unsigned long long int id = 41800000;	//学号
+	CString clazz = NULL;		//班级
+	CString birthday = NULL;	//生日
 	// 成绩应该用ArrayList之类的可变容器储存, 方便科目的添加;
 	int dataStructure = 0;
 	int computerNetwork = 0;
 	int compilationPrinciple = 0;
 	int androidDevelopment = 0;
-}Student;
+} Student;
 
 
 struct Node
 {
-
 	Student student;	//数据域
 
-	struct Node* before = NULL;
+	struct Node* prev = NULL;
 	struct Node* next = NULL;	//指针域
 
 };
